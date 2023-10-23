@@ -1,0 +1,25 @@
+{
+  "name": "sr-socket",
+  "version": "1.0.0",
+  "description": "this is the sr-socket",
+  "main": "index.js",
+  "dependencies": {
+    "socket.io-client": "^4.7.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sokhay-try/socket-module.git"
+  },
+  "keywords": [
+    "sr-socket"
+  ],
+  "author": "sokhay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sokhay-try/socket-module/issues"
+  },
+  "homepage": "https://github.com/sokhay-try/socket-module#readme"
+}
