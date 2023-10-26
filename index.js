@@ -1,49 +1,58 @@
-import io from 'socket.io-client'
+const initWebSocket = {
+    subscribe: function (url, callBack, onDisconnected) {
+        const ws = new WebSocket(url)
 
-function configuration(options = {}) {
-    let reconnection = true;
-    if (options.reconnection != null && options.reconnection != undefined) {
-        reconnection = options.reconnection;
+        ws.onopen = function() {
+            console.log("Connected to Server"); 
+        };
+
+        ws.onmessage = function(event) {
+            if(callBack) {
+                callBack(event)
+            }
+        } 
+
+        ws.onerror = function(event) {
+            console.log('WebSocket error:', event);
+        };
+
+        ws.onclose = function() {
+            if (onDisconnected) {
+                onDisconnected('WebSocket connection closed')
+            }
+        };
+        
+        return ws
+    },
+    unsubscribe: function(ws, callBack) {
+        // Disconnect the WebSocket
+        if (ws) {
+            ws.close()
+            if(callBack) {
+                callBack("WebSocket is disconnected!")
+            }
+        }
+    },
+    onSend: function(ws, payload) {
+        if(ws) {
+            ws.send(JSON.stringify(payload))
+        }
     }
 
-    const _io = io(options.server, {
-        reconnection: reconnection,
-        auth: {
-            Authorization: `Bearer ${options.token}`,
-        },
-    });
-
-    _io.on('connect', function() {
-        console.log('Client connected to the server');
-    });
-
-    _io.on('disconnect', function(){
-        console.log('Client disconnected to the server');
-    });
-
-    _io.on('reconnect', function(){
-        console.log('Client reconnect to the server');
-    });
-
-    
-    return _io;
 }
-
 
 
 const socketForJSFramework = {
 
-    SoraVueSocketIO: {
+    VueWebSocket: {
         install(Vue, options) {
-            
-            const _io = configuration(options)
 
             const version = Number(Vue.version.split('.')[0])
     
             if (version >= 3) {
-                Vue.config.globalProperties.$soraSocketIO = _io
+                Vue.config.globalProperties.$soraSocket = initWebSocket
             } else {
-                Vue.prototype.$soraSocketIO = _io
+                Vue.prototype.$soraSocket= initWebSocket
             }
     
         }
@@ -52,6 +61,6 @@ const socketForJSFramework = {
 
 export const {
 
-    SoraVueSocketIO
+    VueWebSocket
 
 } = socketForJSFramework;

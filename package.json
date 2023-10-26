@@ -4,7 +4,6 @@
   "description": "this is the sr-socket",
   "main": "index.js",
   "dependencies": {
-    "socket.io-client": "^4.7.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,5 +20,7 @@
   "bugs": {
     "url": "https://github.com/sokhay-try/socket-module/issues"
   },
-  "homepage": "https://github.com/sokhay-try/socket-module#readme"
+  "homepage": "https://github.com/sokhay-try/socket-module#readme",
+  "devDependencies": {
+  }
 }
