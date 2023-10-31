@@ -26,10 +26,11 @@ const initWebSocket = {
     },
     unsubscribe: function(ws, callBack) {
         // Disconnect the WebSocket
+        const url = ws.url
         if (ws) {
             ws.close()
             if(callBack) {
-                callBack("WebSocket is disconnected!")
+                callBack(`unsubscribe to ${url}`)
             }
         }
     },
